@@ -1,7 +1,9 @@
-import { useTheme } from "next-themes";
 import StyledButton from "./components/styled/button";
+
+import { useChangeTheme } from "@/hooks/useChangeTheme";
+
 export default function Home() {
-  const { theme, setTheme } = useTheme();
+  const { changeTheme } = useChangeTheme();
   return (
     <div className="flex flex-col">
       <div className="flex">
@@ -14,48 +16,37 @@ export default function Home() {
           size="small"
           className="uppercase"
           disabled
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onClick={changeTheme}
         >
-          deneme
+          Change Theme
         </StyledButton>
-        <StyledButton
-          size="medium"
-          loading
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          deneme
+        <StyledButton size="medium" loading onClick={changeTheme}>
+          Change Theme
         </StyledButton>
-        <StyledButton
-          size="large"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          deneme
+        <StyledButton size="large" onClick={changeTheme}>
+          Change Theme
         </StyledButton>
       </div>
       <div className="flex gap-2 p-2">
         <StyledButton
           size="small"
-          className="uppercase"
+          className="rounded-full uppercase"
           disabled
           variant="flat"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onClick={changeTheme}
         >
-          deneme
+          Change Theme
         </StyledButton>
         <StyledButton
           size="medium"
           loading
           variant="flat"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onClick={changeTheme}
         >
-          deneme
+          Change Theme
         </StyledButton>
-        <StyledButton
-          size="large"
-          variant="flat"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          deneme
+        <StyledButton size="large" variant="flat" onClick={changeTheme}>
+          Change Theme
         </StyledButton>
       </div>
     </div>
