@@ -9,57 +9,54 @@ export default function Home() {
           asdfd
         </nav>
       </div>
-      <div className="flex">
+      <div className="flex gap-2 p-2">
         <StyledButton
-          className="m-4"
-          variant="outlined"
           size="small"
+          className="uppercase"
+          disabled
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
-          Theme
+          deneme
         </StyledButton>
         <StyledButton
-          className="m-4"
-          variant="outlined"
           size="medium"
+          loading
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
-          Theme
+          deneme
         </StyledButton>
         <StyledButton
-          className="m-4"
-          variant="outlined"
           size="large"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
-          Theme
+          deneme
         </StyledButton>
+      </div>
+      <div className="flex gap-2 p-2">
         <StyledButton
-          className="m-4"
-          variant="filled"
           size="small"
+          className="uppercase"
+          disabled
+          variant="flat"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
-          Change
+          deneme
         </StyledButton>
         <StyledButton
-          className="m-4"
-          variant="filled"
           size="medium"
+          loading
+          variant="flat"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
-          Change
+          deneme
         </StyledButton>
         <StyledButton
-          className="m-4"
-          variant="filled"
           size="large"
+          variant="flat"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
-          Change
+          deneme
         </StyledButton>
-        <button className="btn-primary">asdf</button>
-        <h1>Hello Word!</h1>
       </div>
     </div>
   );

@@ -1,55 +1,60 @@
 import React, { PropsWithChildren } from "react";
-
+import { CgSpinner } from "react-icons/cg";
 interface StyledButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
   size?: "small" | "medium" | "large";
-  variant?: "filled" | "outlined";
+  variant?: "filled" | "flat";
+  loading?: boolean;
 }
 
 const StyledButton = ({
   children,
   onClick,
   disabled = false,
-  className,
+  className = ``,
   size = "medium",
   variant = "filled",
+  loading = false,
 }: StyledButtonProps & PropsWithChildren) => {
   let textSize;
   switch (size) {
     case "small":
-      textSize = "h-8 px-3 py-1 text-sm ";
+      textSize = `h-8 px-3 py-1 text-sm `;
       break;
     case "medium":
-      textSize = "h-10 px-4 py-1 text-lg ";
+      textSize = `h-10 px-4 py-1 text-lg `;
       break;
     case "large":
-      textSize = "h-12 px-5 py-2 text-xl ";
+      textSize = `h-12 px-5 py-2 text-xl `;
       break;
     default:
-      textSize = "h-10 px-5 py-2 text-xl ";
+      textSize = `h-10 px-5 py-2 text-xl `;
       break;
   }
   let variantClass;
   switch (variant) {
     case "filled":
-      variantClass = `rounded bg-primary-600 [outlined]:bg-red-500 text-stone-50 transition hover:bg-primary-700 hover:text-stone-300`;
+      variantClass = `btn-primary`;
       break;
-    case "outlined":
-      variantClass = `rounded bg-primary-50  text-black transition hover:bg-primary-200 hover:text-black`;
+    case "flat":
+      variantClass = `btn-primary-flat`;
       break;
     default:
-      variantClass = "";
+      variantClass = `btn-primary`;
       break;
   }
   return (
     <button
-      className={"outlined " + textSize + variantClass + ` ${className}`}
+      className={`inline-block ` + textSize + variantClass + ` ${className}`}
       onClick={onClick}
       disabled={disabled}
     >
-      {children}
+      <div className="flex items-center justify-center gap-1">
+        {loading && <CgSpinner className="animate-spin" />}
+        {children}
+      </div>
     </button>
   );
 };

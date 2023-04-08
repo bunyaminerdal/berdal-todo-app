@@ -4,10 +4,31 @@
 
 @layer components {
   .btn-primary {
-    @apply h-10 px-4 py-1 text-lg 
-     bg-primary-700
-     text-white rounded-lg
-      shadow-md hover:bg-primary-800
-       focus:outline-none focus:shadow-lg transition
+    @apply  rounded bg-primary-800 
+          font-medium leading-normal text-white shadow-sm
+           shadow-primary-600/60 transition duration-150 ease-in-out
+           hover:bg-primary-700
+           hover:shadow-md hover:shadow-primary-600/60
+           focus-visible:bg-primary-600 focus-visible:shadow-primary-700/70
+            focus:outline-none focus:ring-0
+           active:bg-primary-800 active:shadow-primary-700/50
+           active:animate-click
+           disabled:shadow-sm disabled:bg-primary-500 disabled:text-slate-500
+           disabled:animate-none
+           disabled:cursor-not-allowed
+  }
+  .btn-primary-flat{
+    @apply rounded 
+          font-medium leading-normal text-gray-950 shadow-sm
+          transition duration-150 ease-linear
+          bg-primary-200 shadow-primary-300/60  
+           hover:bg-primary-300 hover:shadow-md hover:shadow-primary-300/60
+           focus-visible:bg-primary-200 focus-visible:shadow-primary-200/70
+            focus:outline-none focus:ring-0
+           active:bg-primary-300 active:shadow-primary-200/50
+           disabled:bg-primary-200 disabled:shadow-sm  disabled:text-slate-500
+           disabled:animate-none
+           disabled:cursor-not-allowed
+           active:animate-click
   }
 }
