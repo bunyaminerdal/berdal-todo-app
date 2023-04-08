@@ -48,12 +48,15 @@ const StyledButton = ({
   return (
     <button
       className={
-        `inline-block shrink-0 ` + textSize + variantClass + ` ${className}`
+        `inline-block shrink-0 items-center justify-center ` +
+        textSize +
+        variantClass +
+        ` ${className}`
       }
       onClick={onClick}
       disabled={disabled}
     >
-      <div className="flex shrink-0 items-center justify-center gap-2">
+      <div className="flex min-w-max shrink-0 items-center justify-center gap-2">
         {loading && <CgSpinner className="animate-spin" />}
         {children}
       </div>
