@@ -36,13 +36,13 @@ const StyledButton = ({
   let variantClass;
   switch (variant) {
     case "filled":
-      variantClass = `btn-primary`;
+      variantClass = `be-btn-primary`;
       break;
     case "flat":
-      variantClass = `btn-primary-flat`;
+      variantClass = `be-btn-primary-flat`;
       break;
     default:
-      variantClass = `btn-primary`;
+      variantClass = `be-btn-primary`;
       break;
   }
   return (

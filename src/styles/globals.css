@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html,body,main{
+  height: 100vh;
+}
+
 @layer components {
-  .btn-primary {
+  .be-btn-primary {
     @apply  rounded bg-primary-800 
           font-medium leading-normal text-white shadow-sm
            shadow-primary-600/60 transition duration-150 ease-in-out
@@ -17,7 +21,7 @@
            disabled:animate-none
            disabled:cursor-not-allowed
   }
-  .btn-primary-flat{
+  .be-btn-primary-flat{
     @apply rounded 
           font-medium leading-normal text-gray-950 shadow-sm
           transition duration-150 ease-linear
