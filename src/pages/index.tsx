@@ -1,7 +1,7 @@
-import StyledButton from "./components/styled/button";
+import StyledButton from "@/components/styled/button";
 
 import { useChangeTheme } from "@/hooks/useChangeTheme";
-import Input from "./components/styled/input";
+import Input from "@/components/styled/input";
 
 export default function Home() {
   const { changeTheme } = useChangeTheme();
