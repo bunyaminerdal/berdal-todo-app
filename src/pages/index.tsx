@@ -1,10 +1,15 @@
 import StyledButton from "@/components/styled/button";
 
+import useSWR from "swr";
 import { useChangeTheme } from "@/hooks/useChangeTheme";
 import Input from "@/components/styled/input";
+import basicApi from '@/services/basicApi';
 
 export default function Home() {
   const { changeTheme } = useChangeTheme();
+const { data } = useSWR("/api/todo-list", basicApi);
+console.log("🚀 ~ file: index.tsx:14 ~ Home ~ data:", data)
+
   return (
     <div className="flex flex-col">
       <div className="flex">
