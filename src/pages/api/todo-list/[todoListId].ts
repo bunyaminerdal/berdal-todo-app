@@ -11,7 +11,9 @@ export default async function handler(
   if (req.method === "GET") {
     try {      
       const todoList = await prisma.todoList.findFirstOrThrow({ where: { id: todoListId?.toString() }, })
-      const todos = await prisma.todo.findMany({where:{todoListId:todoListId?.toString()}})
+      const todos = await prisma.todo.findMany({where:{todoListId:todoListId?.toString()},orderBy: {
+    createdDate: 'desc',
+  },})
       res.status(200).json({...todoList,todos});
     } catch (error) {
       const saf = error as AxiosError

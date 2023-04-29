@@ -9,3 +9,6 @@ type Todo = {
   isDone: boolean;
   todoListId: string;
 };
+type TodoInput = {
+  content: string;
+}
