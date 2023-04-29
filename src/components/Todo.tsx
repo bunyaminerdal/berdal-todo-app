@@ -1,29 +1,26 @@
-import React from 'react'
-import StyledLabel from './styled/label';
-import StyledButton from './styled/button';
-import { ImCheckmark, ImCross } from 'react-icons/im';
-import { BsTrash } from 'react-icons/bs';
-import { CgSpinner } from 'react-icons/cg';
+import React from "react";
+import StyledLabel from "./styled/label";
+import StyledButton from "./styled/button";
+import { ImCheckmark, ImCross } from "react-icons/im";
+import { BsTrash } from "react-icons/bs";
+import { CgSpinner } from "react-icons/cg";
 
-interface todoProps{
-    todo: Todo;
-    isLoading?: boolean;
-    handleDelete?: (todoId: string) => void;
-    handleUpdate?: (todo: Todo) => void;
+interface todoProps {
+  todo: Todo;
+  isLoading?: boolean;
+  handleDelete?: (todoId: string) => void;
+  handleUpdate?: (todo: Todo) => void;
 }
 
-const Todo = ({todo,isLoading,handleDelete,handleUpdate}:todoProps) => {
+const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
   return (
-    <div className="px-2 relative flex flex-row gap-2">
+    <div className="relative flex w-full flex-row gap-2  px-2">
       {isLoading && (
         <div className="absolute left-0 top-0 z-10 flex h-full w-full flex-row items-center justify-center bg-slate-400 bg-opacity-10">
           <CgSpinner className="animate-spin" />
         </div>
       )}
-
-      <StyledLabel
-        className={`flex w-full items-center ${todo.isDone && "line-through"}`}
-      >
+      <StyledLabel className={` ${todo.isDone && "line-through"}`}>
         {todo.content}
       </StyledLabel>
 
@@ -45,6 +42,6 @@ const Todo = ({todo,isLoading,handleDelete,handleUpdate}:todoProps) => {
       </StyledButton>
     </div>
   );
-}
+};
 
 export default Todo;
