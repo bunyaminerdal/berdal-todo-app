@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useState } from "react";
+import React, { ChangeEventHandler, RefObject, useState } from "react";
 
 interface inputProps {
   label: string;
@@ -7,6 +7,7 @@ interface inputProps {
   variant?: "outlined" | "flat";
   className?: string;
   value?: string;
+  inputRef?: RefObject<HTMLInputElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 const Input = ({
@@ -16,12 +17,14 @@ const Input = ({
   variant = "outlined",
   className,
   value = "",
+  inputRef,
   onChange,
 }: inputProps) => {
   const [controlledValue, setControlledValue] = useState(value);
   return (
     <div className={`relative h-12 overflow-hidden ${className} `}>
       <input
+        ref={inputRef}
         value={controlledValue}
         onChange={(e) => {
           onChange && onChange(e);

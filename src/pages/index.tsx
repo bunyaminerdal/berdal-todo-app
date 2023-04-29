@@ -8,13 +8,12 @@ import Link from 'next/link';
 import { ChangeEvent, useState } from 'react';
 import { createTodoList } from '@/services/todoList';
 import { useRouter } from 'next/router';
+import { BasicFetcher } from '@/utils/fetcher';
 
 export default function Home() {
   const { push } = useRouter();
 // const { changeTheme } = useChangeTheme();
   const [title, setTitle] = useState('');
-  const { data } = useSWR("/api/todo-list", basicApi);
-  console.log("🚀 ~ file: index.tsx:14 ~ Home ~ data:", data)
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -38,7 +37,7 @@ export default function Home() {
             value={title}
             onChange={handleChange}
             label="Title"
-            variant="flat"
+            variant="outlined"
             className="w-full"
           />
           <StyledButton className="uppercase" onClick={handleCreate}>

@@ -7,11 +7,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const todoLists = await prisma.todoList.findMany({
       //   where: { user: "Alice" },
     });
-      const newTodoLists = todoLists.map(todoList => { return { id: todoList.id,title:todoList.title}; });
-    res.status(200).json(newTodoLists);
+    res.status(200).json(todoLists);
   }
   if (req.method === "POST") {
-    console.log("🚀 ~ file: index.ts:16 ~ handler ~ req.body:", req.body)
     const newTodoList = await prisma.todoList.create({
       data: req.body,
     });

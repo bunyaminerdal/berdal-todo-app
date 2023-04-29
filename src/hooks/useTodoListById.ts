@@ -1,15 +1,15 @@
 import basicApi from '@/services/basicApi';
+import { BasicFetcher } from '@/utils/fetcher';
 import { AxiosResponse } from 'axios';
 import React from 'react'
 import useSWR, { SWRResponse } from 'swr';
 
-const useTodoListById = (todoListId: string|undefined):TodoList => {
+const useTodoListById = (todoListId: string|undefined):SWRResponse<TodoList> => {
     
-    const {data}=useSWR<AxiosResponse<TodoList>>(
+  return useSWR<TodoList>(
         todoListId?`/api/todo-list/${todoListId}`:null,
-        basicApi
+        BasicFetcher
         );
-  return data?.data??{} as TodoList
 }
 
 export default useTodoListById
