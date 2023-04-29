@@ -1,41 +1,85 @@
 import StyledButton from "@/components/styled/button";
 
-import useSWR from "swr";
-import { useChangeTheme } from "@/hooks/useChangeTheme";
 import StyledInput from "@/components/styled/input";
-import basicApi from '@/services/basicApi';
-import Link from 'next/link';
-import { ChangeEvent, useState } from 'react';
-import { createTodoList } from '@/services/todoList';
-import { useRouter } from 'next/router';
-import { BasicFetcher } from '@/utils/fetcher';
-
+import { createTodoList } from "@/services/todoList";
+import { useRouter } from "next/router";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import StyledLabel from "@/components/styled/label";
 export default function Home() {
   const { push } = useRouter();
-// const { changeTheme } = useChangeTheme();
-  const [title, setTitle] = useState('');
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+  const schema = yup
+    .object({
+      title: yup
+        .string()
+        .required("Todo List title is required!")
+        .min(3, "Todo List title must be at least 3 chars!")
+        .max(100, "Todo List title can't be more than 100 chars"),
+    })
+    .required();
+  const {
+    control,
+    handleSubmit,
+    resetField,
+    formState: { isSubmitting, isValid },
+  } = useForm({
+    defaultValues: {
+      title: "",
+    },
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<TodoListInput> = async (data) => {
+    if (!data.title) return;
+    const todoList = await createTodoList(data.title);
+    if (todoList?.id) push(`/${todoList.id}`);
+    resetField("title");
   };
-  const handleCreate = async () => {
-    const todoList = await createTodoList(title);
-    if(todoList?.id) push(`/${todoList.id}`)
-    
-}
   return (
     <div className="flex w-full justify-center">
-      <div className="m-5 flex  max-w-md flex-col justify-center gap-2">
-        <span className='flex justify-center'>Create New Todo List</span>
-        <StyledInput
-          value={title}
-          onChange={handleChange}
-          label="Title"
-          variant="outlined"
-          className="w-full"
-        />
-        <StyledButton className="uppercase" onClick={handleCreate}>
-          Create
-        </StyledButton>
+      <div className="m-5 flex w-full flex-col justify-center gap-2 sm:w-1/2 lg:w-1/3">
+        <span className="flex justify-center">Create New Todo List</span>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col items-center gap-2"
+          onKeyDown={(e) => {
+            if (e.code === "enter") handleSubmit;
+          }}
+        >
+          <Controller
+            name="title"
+            control={control}
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <div className="flex w-full flex-col">
+                <StyledInput
+                  error={!!error}
+                  label="Todo List Title"
+                  value={value}
+                  onChange={onChange}
+                  className="w-full"
+                  disabled={isSubmitting}
+                />
+                {error && (
+                  <StyledLabel className="text-rose-950">
+                    {error?.message}
+                  </StyledLabel>
+                )}
+              </div>
+            )}
+          />
+          <div className="flex h-full flex-col pt-1">
+            <StyledButton
+              disabled={!isValid}
+              loading={isSubmitting}
+              className="uppercase"
+              type="submit"
+            >
+              Create
+            </StyledButton>
+          </div>
+        </form>
       </div>
     </div>
   );

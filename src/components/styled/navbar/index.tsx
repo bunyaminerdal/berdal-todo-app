@@ -7,9 +7,10 @@ import { useChangeTheme } from "@/hooks/useChangeTheme";
 const StyledNavbar = () => {
   const {
     query: { todoListId },
+    pathname,
   } = useRouter();
   const { theme, changeTheme } = useChangeTheme();
-  if (!todoListId)
+  if (pathname !== "/" && !todoListId)
     return (
       <nav className="z-50 flex h-14 w-full min-w-max items-center justify-center gap-5 bg-slate-400 px-5 dark:bg-slate-800"></nav>
     );

@@ -1,7 +1,7 @@
 type TodoList = {
   id: string;
   title: string;
-  todos?:Todo[]
+  todos?: Todo[];
 };
 type Todo = {
   id: string;
@@ -11,4 +11,7 @@ type Todo = {
 };
 type TodoInput = {
   content: string;
-}
+};
+type TodoListInput = {
+  title: string;
+};

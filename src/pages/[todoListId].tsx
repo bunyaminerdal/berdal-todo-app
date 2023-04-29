@@ -5,7 +5,7 @@ import StyledLabel from "@/components/styled/label";
 import useTodoListById from "@/hooks/useTodoListById";
 import { createTodo, deleteTodo, updateTodo } from "@/services/todo";
 import { useRouter } from "next/router";
-import React, { RefObject, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -59,9 +59,6 @@ const TodoList = () => {
     await mutate();
     setLoadingTodo("");
   };
-  const handleReset = () => {
-    console.log("reset");
-  };
   if (error) {
     return (
       <div className="m-20 flex flex-col justify-center gap-5">
@@ -79,8 +76,8 @@ const TodoList = () => {
   }
 
   return (
-    <div className="flex min-w-[400px] justify-center">
-      <div className="m-10 flex w-full max-w-screen-lg flex-col justify-center gap-2 ">
+    <div className="flex  justify-center">
+      <div className="m-10 flex w-full  flex-col justify-center gap-2 ">
         <span className="flex justify-center gap-2">
           <label>Title: </label>
           <label>{data?.title}</label>
@@ -88,7 +85,6 @@ const TodoList = () => {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          onReset={handleReset}
           className="flex flex-row items-center gap-2"
           onKeyDown={(e) => {
             if (e.code === "enter") handleSubmit;
