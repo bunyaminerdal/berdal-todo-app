@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
-import StyledLabel from "@/components/styled/label";
 export default function Home() {
   const { push } = useRouter();
   const schema = yup
@@ -39,7 +38,7 @@ export default function Home() {
   };
   return (
     <div className="flex w-full justify-center">
-      <div className="m-5 flex w-full flex-col justify-center gap-2 sm:w-1/2 lg:w-1/3">
+      <div className="m-10 flex w-full flex-col justify-center gap-2 sm:w-1/2 lg:w-1/3">
         <span className="flex justify-center">Create New Todo List</span>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -62,9 +61,7 @@ export default function Home() {
                   disabled={isSubmitting}
                 />
                 {error && (
-                  <StyledLabel className="text-rose-950">
-                    {error?.message}
-                  </StyledLabel>
+                  <div className="w-full text-rose-950">{error?.message}</div>
                 )}
               </div>
             )}

@@ -1,5 +1,4 @@
 import React from "react";
-import StyledLabel from "./styled/label";
 import StyledButton from "./styled/button";
 import { ImCheckmark, ImCross } from "react-icons/im";
 import { BsTrash } from "react-icons/bs";
@@ -20,9 +19,9 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
           <CgSpinner className="animate-spin" />
         </div>
       )}
-      <StyledLabel className={` ${todo.isDone && "line-through"}`}>
+      <label className={`w-full ${todo.isDone && "line-through"}`}>
         {todo.content}
-      </StyledLabel>
+      </label>
 
       <StyledButton
         disabled={isLoading}

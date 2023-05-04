@@ -1,7 +1,6 @@
 import Todo from "@/components/Todo";
 import StyledButton from "@/components/styled/button";
 import StyledInput from "@/components/styled/input";
-import StyledLabel from "@/components/styled/label";
 import useTodoListById from "@/hooks/useTodoListById";
 import { createTodo, deleteTodo, updateTodo } from "@/services/todo";
 import { useRouter } from "next/router";
@@ -104,9 +103,7 @@ const TodoList = () => {
                   disabled={isSubmitting}
                 />
                 {error && (
-                  <StyledLabel className="text-rose-950">
-                    {error?.message}
-                  </StyledLabel>
+                  <div className="w-full text-rose-950">{error?.message}</div>
                 )}
               </div>
             )}
@@ -133,7 +130,7 @@ const TodoList = () => {
           )}
           {!data?.todos?.length ? (
             <>
-              <StyledLabel>Todo List is Empty!</StyledLabel>
+              <div className="w-full">Todo List is Empty!</div>
               <hr className="my-2 h-0.5 border-t-0 bg-neutral-300 opacity-100 dark:opacity-50" />
             </>
           ) : null}

@@ -4,8 +4,8 @@ import React, { PropsWithChildren } from "react";
 
 const MainLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="flex min-w-max flex-col">
-      <div className="flex">
+    <div className=" min-w-[370px]">
+      <div className="flex w-full">
         <StyledNavbar />
       </div>
       <div className="h-full w-full">{children}</div>
