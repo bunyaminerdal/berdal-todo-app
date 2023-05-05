@@ -8,12 +8,14 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import StyledModal from "@/components/styled/modal";
 
 const TodoList = () => {
   const {
     query: { todoListId },
     push,
   } = useRouter();
+  const [openModal, setOpenModal] = useState(true);
   const { data, error, mutate } = useTodoListById(todoListId?.toString());
   const schema = yup
     .object({
@@ -147,6 +149,22 @@ const TodoList = () => {
           ))}
         </div>
       </div>
+      {openModal && (
+        <StyledModal
+          setOpenModal={setOpenModal}
+          title={"selam"}
+          content={
+            <div>
+              asdf <br />
+            </div>
+          }
+          okButtonText="Share"
+          okButtonFunc={() => {
+            setOpenModal(false);
+            console.log("dasdf");
+          }}
+        />
+      )}
     </div>
   );
 };

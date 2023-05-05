@@ -1,5 +1,4 @@
 import StyledNavbar from "@/components/styled/navbar";
-import Link from "next/link";
 import React, { PropsWithChildren } from "react";
 
 const MainLayout = ({ children }: PropsWithChildren) => {
