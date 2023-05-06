@@ -68,34 +68,32 @@ const StyledNavbar = () => {
           setOpenModal={setOpenModal}
           title={"Copy or Share Your Todo Link"}
           content={
-            <div className="p-2">
-              <div className="flex w-full flex-row items-center justify-between gap-2">
-                <StyledInput
-                  label="Your Link"
-                  disabled
-                  value={baseUrl + asPath}
-                  variant="flat"
-                  className="w-full min-w-fit"
-                />
-                <StyledButton
-                  variant="link"
-                  onClick={() => {
-                    navigator.clipboard.writeText(baseUrl + asPath);
-                    setIsCopied(true);
-                  }}
-                >
-                  {isCopied ? (
-                    <>
-                      <BsClipboard2Check /> {" Copied"}
-                    </>
-                  ) : (
-                    <>
-                      <BsClipboard2Plus />
-                      {" Copy"}
-                    </>
-                  )}
-                </StyledButton>
-              </div>
+            <div className="flex items-center justify-between gap-2">
+              <StyledInput
+                label="Your Link"
+                disabled
+                value={baseUrl + asPath}
+                variant="flat"
+                className="w-full min-w-fit"
+              />
+              <StyledButton
+                variant="link"
+                onClick={() => {
+                  navigator.clipboard.writeText(baseUrl + asPath);
+                  setIsCopied(true);
+                }}
+              >
+                {isCopied ? (
+                  <>
+                    <BsClipboard2Check /> {" Copied"}
+                  </>
+                ) : (
+                  <>
+                    <BsClipboard2Plus />
+                    {" Copy"}
+                  </>
+                )}
+              </StyledButton>
             </div>
           }
           okButtonText="Share"
