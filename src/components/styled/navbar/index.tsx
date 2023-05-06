@@ -1,8 +1,9 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { useChangeTheme } from "@/hooks/useChangeTheme";
+import StyledModal from "../modal";
 
 const StyledNavbar = () => {
   const {
@@ -10,6 +11,8 @@ const StyledNavbar = () => {
     pathname,
   } = useRouter();
   const { theme, changeTheme } = useChangeTheme();
+  const [openModal, setOpenModal] = useState(false);
+
   if (pathname !== "/" && !todoListId)
     return (
       <nav className="z-50 flex h-14 w-full min-w-max items-center justify-center gap-5 bg-slate-400 px-5 dark:bg-slate-800"></nav>
@@ -26,7 +29,8 @@ const StyledNavbar = () => {
           </Link>
           <Link
             className="rounded-md px-3 py-2 text-sm font-medium text-slate-900 hover:bg-slate-700 hover:text-white dark:text-slate-400 dark:hover:text-slate-100"
-            href="/"
+            href="#"
+            onClick={() => setOpenModal((prev) => !prev)}
           >
             Share Todo List
           </Link>
@@ -51,6 +55,27 @@ const StyledNavbar = () => {
           <BiMoon className="h-5 w-5" />
         )}
       </a>
+      {openModal && (
+        <StyledModal
+          setOpenModal={setOpenModal}
+          title={"selam"}
+          content={
+            <div>
+              asdf sadf sdf sadf sdf sdf sdf sadf asdf asdf sdf sdaf sadf sadf
+              sadf sadf sdaf sadf sadf sadf <br />
+              asdf sadf sdf sadf sdf sdf sdf sadf asdf asdf sdf sdaf sadf sadf
+              sadf sadf sdaf sadf sadf sadf <br />
+              asdf sadf sdf sadf sdf sdf sdf sadf asdf asdf sdf sdaf sadf sadf
+              sadf sadf sdaf sadf sadf sadf <br />
+            </div>
+          }
+          okButtonText="Share"
+          okButtonFunc={() => {
+            setOpenModal(false);
+            console.log("dasdf");
+          }}
+        />
+      )}
     </nav>
   );
 };

@@ -15,7 +15,6 @@ const TodoList = () => {
     query: { todoListId },
     push,
   } = useRouter();
-  const [openModal, setOpenModal] = useState(true);
   const { data, error, mutate } = useTodoListById(todoListId?.toString());
   const schema = yup
     .object({
@@ -149,22 +148,6 @@ const TodoList = () => {
           ))}
         </div>
       </div>
-      {openModal && (
-        <StyledModal
-          setOpenModal={setOpenModal}
-          title={"selam"}
-          content={
-            <div>
-              asdf <br />
-            </div>
-          }
-          okButtonText="Share"
-          okButtonFunc={() => {
-            setOpenModal(false);
-            console.log("dasdf");
-          }}
-        />
-      )}
     </div>
   );
 };
