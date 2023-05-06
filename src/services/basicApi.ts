@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
 const basicApi = axios.create({
-  baseURL: process.env.NEXT_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 basicApi.defaults.headers.post["Content-Type"] = "application/json";
 basicApi.defaults.headers.put["Content-Type"] = "application/json";
 basicApi.defaults.headers.patch["Content-Type"] = "application/json";
 
-export default basicApi
+export default basicApi;

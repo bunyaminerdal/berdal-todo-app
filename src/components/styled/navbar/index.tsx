@@ -1,18 +1,26 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { BiMoon, BiSun } from "react-icons/bi";
 import { useChangeTheme } from "@/hooks/useChangeTheme";
 import StyledModal from "../modal";
+import StyledInput from "../input";
+import StyledButton from "../button";
+import { BsClipboard2Check, BsClipboard2Plus } from "react-icons/bs";
 
 const StyledNavbar = () => {
   const {
     query: { todoListId },
     pathname,
+    asPath,
   } = useRouter();
   const { theme, changeTheme } = useChangeTheme();
   const [openModal, setOpenModal] = useState(false);
-
+  const [isCopied, setIsCopied] = useState(false);
+  useEffect(() => {
+    if (openModal) setIsCopied(false);
+  }, [openModal]);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
   if (pathname !== "/" && !todoListId)
     return (
       <nav className="z-50 flex h-14 w-full min-w-max items-center justify-center gap-5 bg-slate-400 px-5 dark:bg-slate-800"></nav>
@@ -58,15 +66,36 @@ const StyledNavbar = () => {
       {openModal && (
         <StyledModal
           setOpenModal={setOpenModal}
-          title={"selam"}
+          title={"Copy or Share Your Todo Link"}
           content={
-            <div>
-              asdf sadf sdf sadf sdf sdf sdf sadf asdf asdf sdf sdaf sadf sadf
-              sadf sadf sdaf sadf sadf sadf <br />
-              asdf sadf sdf sadf sdf sdf sdf sadf asdf asdf sdf sdaf sadf sadf
-              sadf sadf sdaf sadf sadf sadf <br />
-              asdf sadf sdf sadf sdf sdf sdf sadf asdf asdf sdf sdaf sadf sadf
-              sadf sadf sdaf sadf sadf sadf <br />
+            <div className="p-2">
+              <div className="flex w-full flex-row items-center justify-between gap-2">
+                <StyledInput
+                  label="Your Link"
+                  disabled
+                  value={baseUrl + asPath}
+                  variant="flat"
+                  className="w-full min-w-fit"
+                />
+                <StyledButton
+                  variant="link"
+                  onClick={() => {
+                    navigator.clipboard.writeText(baseUrl + asPath);
+                    setIsCopied(true);
+                  }}
+                >
+                  {isCopied ? (
+                    <>
+                      <BsClipboard2Check /> {" Copied"}
+                    </>
+                  ) : (
+                    <>
+                      <BsClipboard2Plus />
+                      {" Copy"}
+                    </>
+                  )}
+                </StyledButton>
+              </div>
             </div>
           }
           okButtonText="Share"

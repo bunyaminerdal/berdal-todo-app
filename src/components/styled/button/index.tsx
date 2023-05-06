@@ -5,9 +5,9 @@ interface StyledButtonProps {
   disabled?: boolean;
   className?: string;
   size?: "small" | "medium" | "large";
-  variant?: "filled" | "flat";
+  variant?: "filled" | "flat" | "link";
   loading?: boolean;
-  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
 }
 
 const StyledButton = ({
@@ -18,7 +18,7 @@ const StyledButton = ({
   size = "medium",
   variant = "filled",
   loading = false,
-  type = 'button'
+  type = "button",
 }: StyledButtonProps & PropsWithChildren) => {
   let textSize;
   switch (size) {
@@ -42,6 +42,9 @@ const StyledButton = ({
       break;
     case "flat":
       variantClass = `btn-primary-flat`;
+      break;
+    case "link":
+      variantClass = `btn-primary-link`;
       break;
     default:
       variantClass = `btn-primary`;
