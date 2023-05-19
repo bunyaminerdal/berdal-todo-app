@@ -104,7 +104,7 @@ const TodoList = () => {
                   disabled={isSubmitting}
                 />
                 {error && (
-                  <div className="w-full text-rose-950">{error?.message}</div>
+                  <div className="w-full text-rose-600">{error?.message}</div>
                 )}
               </div>
             )}

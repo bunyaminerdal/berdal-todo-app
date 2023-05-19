@@ -31,7 +31,13 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
   const defaultValues = {
     content: todo.content,
   };
-  const { control, resetField, getValues, handleSubmit } = useForm({
+  const {
+    control,
+    resetField,
+    getValues,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm({
     defaultValues,
     mode: "onChange",
     resolver: yupResolver(schema),
@@ -57,13 +63,18 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
           }}
         >
           <Tooltip text="Ok" position="top-left">
-            <StyledButton disabled={isLoading} size="small" type="submit">
+            <StyledButton
+              loading={isLoading}
+              disabled={!isValid}
+              size="small"
+              type="submit"
+            >
               <BsCheckCircle />
             </StyledButton>
           </Tooltip>
           <Tooltip text="Cancel" position="top-left">
             <StyledButton
-              disabled={isLoading}
+              loading={isLoading}
               size="small"
               onClick={() => {
                 setIsEditing(false);
@@ -78,7 +89,7 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
             name="content"
             control={control}
             render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <>
+              <div className="w-full">
                 <StyledInput
                   error={!!error}
                   className="h-9 w-full"
@@ -86,9 +97,9 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
                   onChange={onChange}
                 />
                 {error && (
-                  <div className="w-full text-rose-950">{error?.message}</div>
+                  <div className="w-full text-rose-600">{error?.message}</div>
                 )}
-              </>
+              </div>
             )}
           />
         </form>
