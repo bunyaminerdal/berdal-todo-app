@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, RefObject } from "react";
 
 interface inputProps {
-  label: string;
+  label?: string;
   type?: string;
   disabled?: boolean;
   variant?: "outlined" | "flat";
@@ -18,7 +18,7 @@ const StyledInput = ({
   variant = "outlined",
   className,
   value = "",
-  error=false,
+  error = false,
   inputRef,
   onChange,
 }: inputProps) => {
@@ -43,7 +43,7 @@ const StyledInput = ({
         ${error ? "focus:border-rose-600" : "focus:border-primary-600"}
         bg-primary-200/30 p-1
         pl-2
-        pt-4    
+        ${label ? "pt-4" : ""}    
         font-light            
         outline-none
         transition
@@ -51,8 +51,9 @@ const StyledInput = ({
         disabled:border-primary-900        
         `}
       />
-      <label
-        className={`
+      {label ? (
+        <label
+          className={`
         absolute
           left-3
           inline-block shrink-0 truncate
@@ -80,9 +81,10 @@ const StyledInput = ({
           peer-focus:scale-75
           peer-focus:opacity-70
           `}
-      >
-        {label}
-      </label>
+        >
+          {label}
+        </label>
+      ) : null}
     </div>
   );
 };
