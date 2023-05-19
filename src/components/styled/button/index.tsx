@@ -1,12 +1,13 @@
-import React, { PropsWithChildren } from "react";
+import React, { ButtonHTMLAttributes, PropsWithChildren } from "react";
 import { CgSpinner } from "react-icons/cg";
 interface StyledButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
   size?: "small" | "medium" | "large";
-  variant?: "filled" | "flat";
+  variant?: "filled" | "flat" | "link";
   loading?: boolean;
+  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
 }
 
 const StyledButton = ({
@@ -17,6 +18,7 @@ const StyledButton = ({
   size = "medium",
   variant = "filled",
   loading = false,
+  type = "button",
 }: StyledButtonProps & PropsWithChildren) => {
   let textSize;
   switch (size) {
@@ -41,6 +43,9 @@ const StyledButton = ({
     case "flat":
       variantClass = `btn-primary-flat`;
       break;
+    case "link":
+      variantClass = `btn-primary-link`;
+      break;
     default:
       variantClass = `btn-primary`;
       break;
@@ -54,7 +59,8 @@ const StyledButton = ({
         ` ${className}`
       }
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || loading}
+      type={type}
     >
       <div className="flex min-w-max shrink-0 items-center justify-center gap-2">
         {loading && <CgSpinner className="animate-spin" />}

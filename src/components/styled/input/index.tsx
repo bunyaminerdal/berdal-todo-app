@@ -1,32 +1,33 @@
-import React, { ChangeEventHandler, useState } from "react";
+import React, { ChangeEventHandler, RefObject } from "react";
 
 interface inputProps {
-  label: string;
+  label?: string;
   type?: string;
   disabled?: boolean;
   variant?: "outlined" | "flat";
   className?: string;
   value?: string;
+  error?: boolean;
+  inputRef?: RefObject<HTMLInputElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
-const Input = ({
+const StyledInput = ({
   label,
   type = "text",
   disabled,
   variant = "outlined",
   className,
   value = "",
+  error = false,
+  inputRef,
   onChange,
 }: inputProps) => {
-  const [controlledValue, setControlledValue] = useState(value);
   return (
     <div className={`relative h-12 overflow-hidden ${className} `}>
       <input
-        value={controlledValue}
-        onChange={(e) => {
-          onChange && onChange(e);
-          setControlledValue(e.target.value);
-        }}
+        ref={inputRef}
+        value={value}
+        onChange={onChange}
         disabled={disabled}
         placeholder=" "
         type={type}
@@ -38,21 +39,21 @@ const Input = ({
         ${variant === "outlined" ? "border-2" : "border-b-2"}
         disabled:border-slate
         disabled:text-color
-        border-primary-800
+        ${error ? "border-rose-800" : "border-primary-800"}
+        ${error ? "focus:border-rose-600" : "focus:border-primary-600"}
         bg-primary-200/30 p-1
         pl-2
-        pt-4    
+        ${label ? "pt-4" : ""}    
         font-light            
         outline-none
         transition
-        focus:border-primary-600
         disabled:cursor-not-allowed
-        disabled:border-primary-900
-        
+        disabled:border-primary-900        
         `}
       />
-      <label
-        className={`
+      {label ? (
+        <label
+          className={`
         absolute
           left-3
           inline-block shrink-0 truncate
@@ -80,11 +81,12 @@ const Input = ({
           peer-focus:scale-75
           peer-focus:opacity-70
           `}
-      >
-        {label}
-      </label>
+        >
+          {label}
+        </label>
+      ) : null}
     </div>
   );
 };
 
-export default Input;
+export default StyledInput;
