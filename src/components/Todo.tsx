@@ -9,6 +9,7 @@ import StyledInput from "./styled/input";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Tooltip from "./styled/tooltip";
 interface todoProps {
   todo: Todo;
   isLoading?: boolean;
@@ -55,19 +56,23 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
             if (e.code === "enter") handleSubmit;
           }}
         >
-          <StyledButton disabled={isLoading} size="small" type="submit">
-            <BsCheckCircle />
-          </StyledButton>
-          <StyledButton
-            disabled={isLoading}
-            size="small"
-            onClick={() => {
-              setIsEditing(false);
-              resetField("content");
-            }}
-          >
-            <ImCancelCircle />
-          </StyledButton>
+          <Tooltip text="Ok" position="top-left">
+            <StyledButton disabled={isLoading} size="small" type="submit">
+              <BsCheckCircle />
+            </StyledButton>
+          </Tooltip>
+          <Tooltip text="Cancel" position="top-left">
+            <StyledButton
+              disabled={isLoading}
+              size="small"
+              onClick={() => {
+                setIsEditing(false);
+                resetField("content");
+              }}
+            >
+              <ImCancelCircle />
+            </StyledButton>
+          </Tooltip>
 
           <Controller
             name="content"
@@ -78,7 +83,6 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
                   error={!!error}
                   className="h-9 w-full"
                   value={value}
-                  // onChange={(v) => setTodoContent(v.target.value)}
                   onChange={onChange}
                 />
                 {error && (
@@ -93,29 +97,47 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
           <label className={`w-full ${todo.isDone && "line-through"}`}>
             {todo.content}
           </label>
-          <StyledButton
-            disabled={isLoading}
-            size="small"
-            onClick={() =>
-              handleUpdate && handleUpdate({ ...todo, isDone: !todo.isDone })
-            }
+          <Tooltip
+            text={`${todo.isDone ? "Incomplete" : "Complete"}`}
+            // position="top-left"
+            position="top-right"
           >
-            {todo.isDone ? <ImCross /> : <ImCheckmark />}
-          </StyledButton>
-          <StyledButton
-            disabled={isLoading}
-            size="small"
-            onClick={() => setIsEditing(true)}
+            <StyledButton
+              disabled={isLoading}
+              size="small"
+              onClick={() =>
+                handleUpdate && handleUpdate({ ...todo, isDone: !todo.isDone })
+              }
+            >
+              {todo.isDone ? <ImCross /> : <ImCheckmark />}
+            </StyledButton>
+          </Tooltip>
+          <Tooltip
+            text="Edit"
+            // position="top-left"
+            position="top-right"
           >
-            <FaRegEdit />
-          </StyledButton>
-          <StyledButton
-            disabled={isLoading}
-            size="small"
-            onClick={() => handleDelete && handleDelete(todo.id)}
+            <StyledButton
+              disabled={isLoading}
+              size="small"
+              onClick={() => setIsEditing(true)}
+            >
+              <FaRegEdit />
+            </StyledButton>
+          </Tooltip>
+          <Tooltip
+            text="Delete"
+            // position="top-left"
+            position="top-right"
           >
-            <BsTrash />
-          </StyledButton>
+            <StyledButton
+              disabled={isLoading}
+              size="small"
+              onClick={() => handleDelete && handleDelete(todo.id)}
+            >
+              <BsTrash />
+            </StyledButton>
+          </Tooltip>
         </>
       )}
     </div>
