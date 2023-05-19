@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import StyledButton from "./styled/button";
 import { ImCheckmark, ImCross } from "react-icons/im";
 import { BsTrash, BsCheckCircle } from "react-icons/bs";
@@ -94,7 +94,9 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
         </form>
       ) : (
         <>
-          <label className={`w-full ${todo.isDone && "line-through"}`}>
+          <label
+            className={`w-full self-center ${todo.isDone && "line-through"}`}
+          >
             {todo.content}
           </label>
           <Tooltip
