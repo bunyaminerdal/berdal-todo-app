@@ -99,7 +99,6 @@ const StyledNavbar = () => {
           okButtonText="Share"
           okButtonFunc={() => {
             setOpenModal(false);
-            console.log("dasdf");
           }}
         />
       )}
