@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StyledButton from "./styled/button";
 import { ImCheckmark, ImCross } from "react-icons/im";
 import { BsTrash, BsCheckCircle } from "react-icons/bs";
@@ -28,17 +28,14 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
         .max(100, "Todo context can't be more than 100 chars"),
     })
     .required();
-  const defaultValues = {
-    content: todo.content,
-  };
   const {
     control,
-    resetField,
     getValues,
     handleSubmit,
+    setValue,
     formState: { isValid },
   } = useForm({
-    defaultValues,
+    defaultValues: { content: todo.content },
     mode: "onChange",
     resolver: yupResolver(schema),
   });
@@ -47,6 +44,10 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
     handleUpdate && handleUpdate({ ...todo, content: getValues("content") });
     setIsEditing(false);
   };
+  useEffect(() => {
+    if (!isEditing) setValue("content", todo.content);
+  }, [isEditing, setValue, todo.content]);
+
   return (
     <div className="relative flex w-full flex-row gap-2  px-2">
       {isLoading && (
@@ -78,7 +79,6 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
               size="small"
               onClick={() => {
                 setIsEditing(false);
-                resetField("content");
               }}
             >
               <ImCancelCircle />
