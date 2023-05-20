@@ -4,7 +4,7 @@ import StyledInput from "@/components/styled/input";
 import useTodoListById from "@/hooks/useTodoListById";
 import { createTodo, deleteTodo, updateTodo } from "@/services/todo";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -16,6 +16,9 @@ const TodoList = () => {
     push,
   } = useRouter();
   const { data, error, mutate } = useTodoListById(todoListId?.toString());
+  useEffect(() => {
+    if (data) localStorage.setItem("title", data.title);
+  }, [data]);
   const schema = yup
     .object({
       content: yup
