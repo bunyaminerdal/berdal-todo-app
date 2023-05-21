@@ -9,13 +9,16 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import StyledModal from "@/components/styled/modal";
+import { CgSpinner } from "react-icons/cg";
 
 const TodoList = () => {
   const {
     query: { todoListId },
     push,
   } = useRouter();
-  const { data, error, mutate } = useTodoListById(todoListId?.toString());
+  const { data, error, mutate, isLoading } = useTodoListById(
+    todoListId?.toString()
+  );
   useEffect(() => {
     if (data) localStorage.setItem("title", data.title);
   }, [data]);
@@ -78,6 +81,20 @@ const TodoList = () => {
     );
   }
 
+  if (isLoading || !todoListId)
+    return (
+      <div className="flex  justify-center">
+        <div className="m-10 flex w-full  flex-col justify-center gap-2 ">
+          <div className="absolute left-0 top-0 z-10 flex h-full w-full flex-row items-center justify-center gap-3 bg-slate-400 bg-opacity-10">
+            <span className="flex justify-center gap-2">
+              <label className="text-xl">Loading... </label>
+            </span>
+            <CgSpinner className="h-10 w-10 animate-spin" />
+          </div>
+        </div>
+      </div>
+    );
+
   return (
     <div className="flex  justify-center">
       <div className="m-10 flex w-full  flex-col justify-center gap-2 ">
@@ -107,7 +124,7 @@ const TodoList = () => {
                   disabled={isSubmitting}
                 />
                 {error && (
-                  <div className="w-full text-rose-950">{error?.message}</div>
+                  <div className="w-full text-rose-600">{error?.message}</div>
                 )}
               </div>
             )}

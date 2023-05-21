@@ -28,11 +28,14 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
         .max(100, "Todo context can't be more than 100 chars"),
     })
     .required();
-  const defaultValues = {
-    content: todo.content,
-  };
-  const { control, resetField, getValues, handleSubmit } = useForm({
-    defaultValues,
+  const {
+    control,
+    getValues,
+    handleSubmit,
+    setValue,
+    formState: { isValid },
+  } = useForm({
+    defaultValues: { content: todo.content },
     mode: "onChange",
     resolver: yupResolver(schema),
   });
@@ -41,6 +44,10 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
     handleUpdate && handleUpdate({ ...todo, content: getValues("content") });
     setIsEditing(false);
   };
+  useEffect(() => {
+    if (!isEditing) setValue("content", todo.content);
+  }, [isEditing, setValue, todo.content]);
+
   return (
     <div className="relative flex w-full flex-row gap-2  px-2">
       {isLoading && (
@@ -57,17 +64,21 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
           }}
         >
           <Tooltip text="Ok" position="top-left">
-            <StyledButton disabled={isLoading} size="small" type="submit">
+            <StyledButton
+              loading={isLoading}
+              disabled={!isValid}
+              size="small"
+              type="submit"
+            >
               <BsCheckCircle />
             </StyledButton>
           </Tooltip>
           <Tooltip text="Cancel" position="top-left">
             <StyledButton
-              disabled={isLoading}
+              loading={isLoading}
               size="small"
               onClick={() => {
                 setIsEditing(false);
-                resetField("content");
               }}
             >
               <ImCancelCircle />
@@ -78,7 +89,7 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
             name="content"
             control={control}
             render={({ field: { value, onChange }, fieldState: { error } }) => (
-              <>
+              <div className="w-full">
                 <StyledInput
                   error={!!error}
                   className="h-9 w-full"
@@ -86,15 +97,17 @@ const Todo = ({ todo, isLoading, handleDelete, handleUpdate }: todoProps) => {
                   onChange={onChange}
                 />
                 {error && (
-                  <div className="w-full text-rose-950">{error?.message}</div>
+                  <div className="w-full text-rose-600">{error?.message}</div>
                 )}
-              </>
+              </div>
             )}
           />
         </form>
       ) : (
         <>
-          <label className={`w-full ${todo.isDone && "line-through"}`}>
+          <label
+            className={`w-full self-center ${todo.isDone && "line-through"}`}
+          >
             {todo.content}
           </label>
           <Tooltip
