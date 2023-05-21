@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import StyledModal from "@/components/styled/modal";
 import { CgSpinner } from "react-icons/cg";
 
 const TodoList = () => {

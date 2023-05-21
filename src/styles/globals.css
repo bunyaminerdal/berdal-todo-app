@@ -6,9 +6,9 @@
   .btn-primary {
     @apply  rounded bg-primary-800 
           font-medium leading-normal text-white shadow-sm
-           shadow-primary-600/60 transition duration-150 ease-in-out
+            transition duration-150 ease-in-out
            hover:bg-primary-700
-           hover:shadow-md hover:shadow-primary-600/60
+           hover:shadow-sm hover:shadow-primary-600/60
            focus-visible:bg-primary-600 focus-visible:shadow-primary-700/70
             focus:outline-none focus:ring-0
            active:bg-primary-800 active:shadow-primary-700/50
@@ -19,10 +19,10 @@
   }
   .btn-primary-flat{
     @apply rounded 
-          font-medium leading-normal text-gray-950 drop-shadow-sm
+          font-medium leading-normal text-gray-950 shadow-sm
           transition duration-150 ease-linear
-          bg-primary-200 shadow-primary-300/60  
-           hover:bg-primary-300 hover:shadow-md hover:shadow-primary-300/60
+          bg-primary-200 
+           hover:bg-primary-300 hover:shadow-sm hover:shadow-primary-300/60
            focus-visible:bg-primary-200 focus-visible:shadow-primary-200/70
             focus:outline-none focus:ring-0
            active:bg-primary-300 active:shadow-primary-200/50
@@ -36,7 +36,7 @@
           font-medium leading-normal text-gray-950 shadow-sm
           transition duration-150 ease-linear
           bg-transparent 
-            hover:drop-shadow-sm hover:shadow-primary-300/60
+            hover:shadow-sm hover:shadow-primary-300/60
            focus-visible:bg-transparent focus-visible:shadow-primary-200/70
             focus:outline-none focus:ring-0
             active:shadow-primary-200/50
@@ -45,8 +45,8 @@
            disabled:cursor-not-allowed
            active:animate-click
            dark:text-slate-50
-           hover:border-2
-           border-primary-800
+           hover:dark:text-primary-400
+           hover:text-primary-800
   }
 
   /*  font-extrabold text-slate-950 shadow-none hover:border-2 hover:bg-transparent  */
