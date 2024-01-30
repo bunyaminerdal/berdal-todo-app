@@ -25,7 +25,7 @@ const ShareModal = ({
   const { asPath } = useRouter();
   const [isCopied, setIsCopied] = useState(false);
   const [shareData, setShareData] = useState<string | null>(null);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
+  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL ?? "";
   const todoLink = baseUrl + asPath;
 
   let schema = yup.object().shape({
