@@ -1,6 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-const nodemailer = require("nodemailer");
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,14 +14,7 @@ export default async function handler(
     if (!title) return res.status(403).json("Title required!");
     if (!todoLink) return res.status(403).json("Todo Link required!");
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || "",
-      port: process.env.EMAIL_PORT || "",
-      auth: {
-        user: process.env.EMAIL_USER || "",
-        pass: process.env.EMAIL_PASS || "",
-      },
-    });
+
     const emailHtml = `<!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +56,7 @@ export default async function handler(
       html: emailHtml,
     };
     try {
-      await transporter.sendMail(options);
+      await resend.emails.send(options);
       return res.status(200).json("Email sent successfully!");
     } catch (error) {
       return res.status(400).json("Sending Email failed!");
