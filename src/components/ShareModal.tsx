@@ -23,10 +23,14 @@ const ShareModal = ({
   setOpenModal: (open: boolean) => void;
 }) => {
   const { asPath } = useRouter();
+  const origin =
+        typeof window !== 'undefined' && window.location.origin
+            ? window.location.origin
+            : '';
+
+    const todoLink = `${origin}${asPath}`;
   const [isCopied, setIsCopied] = useState(false);
   const [shareData, setShareData] = useState<string | null>(null);
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL ?? "";
-  const todoLink = baseUrl + asPath;
 
   let schema = yup.object().shape({
     email: yup.string().email().required(),
