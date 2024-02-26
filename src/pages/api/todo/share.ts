@@ -50,7 +50,7 @@ export default async function handler(
 </html>
 `;
     const options = {
-      from: "noreplay@bunyaminerdal.dev",
+      from: "noreply@bunyaminerdal.dev",
       to: emails,
       subject: "Berdal Todo List Access Link",
       html: emailHtml,
