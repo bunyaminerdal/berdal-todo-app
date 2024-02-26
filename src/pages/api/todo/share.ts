@@ -41,7 +41,7 @@ export default async function handler(
         </tr>
         <tr>
             <td style="padding: 20px; text-align: center;">
-                <p style="color: #777;">&copy; 2023 <span style="font-size: 12px;"></span><a href="https://bunyaminerdal.com" target="_blank">Bünyamin Erdal</a></p>
+                <p style="color: #777;">&copy; 2023 <span style="font-size: 12px;"></span><a href="https://bunyaminerdal.dev" target="_blank">Bünyamin Erdal</a></p>
             </td>
         </tr>
     </table>
@@ -50,7 +50,7 @@ export default async function handler(
 </html>
 `;
     const options = {
-      from: "mail@bunyaminerdal.com",
+      from: "noreplay@bunyaminerdal.dev",
       to: emails,
       subject: "Berdal Todo List Access Link",
       html: emailHtml,
