@@ -2,10 +2,10 @@ import StyledButton from "@/components/styled/button";
 
 import StyledInput from "@/components/styled/input";
 import { createTodoList } from "@/services/todoList";
-import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
 export default function Home() {
   const { push } = useRouter();
   const schema = yup
@@ -36,6 +36,7 @@ export default function Home() {
     if (todoList?.id) push(`/${todoList.id}`);
     resetField("title");
   };
+  
   return (
     <div className="flex w-full justify-center">
       <div className="m-10 flex w-full flex-col justify-center gap-2 sm:w-1/2 lg:w-1/3">
